@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><Document></Document></title>
+	<style type="text/css">
 
+     .left{top:-50px;left:-50px}
+
+      .right{bottom:-50px;right:-50px}
+
+     .container {
+     	width: 400px;
+     	height: 200px;
+     	background-color: #ccc;
+        margin: 0 auto;
+        position: fixed;
+       padding: 20px;
+       top: 50%;
+       left:50%;
+      transform:translate(-50%,-50%);
+     overflow:hidden
+     }
+
+     .circle {
+     	width: 100px;
+     	height: 100px;
+     	overflow: hidden;
+     	color:#fff;
+     	text-align:center;
+     	background-color:#fc0;
+     	position:absolute;
+     	border-radius:100px;
+     }
+
+	</style>
+</head>
+<body>
+	  <div class="container">
+          <div class="circle left"></div>
+          <div class="circle right"></div>
+	 </div>
+</body>
+</html>
