@@ -1,0 +1,133 @@
+
+  function each(arr, fn) {
+    for (var cur = 0; cur < arr.length; cur++) {
+        fn(arr[cur], cur);
+    }
+}
+
+  function addEvent(element, event, listener) {
+    if (element.addEventListener) {
+        element.addEventListener(event, listener, false);
+    }
+    else if (element.attachEvent) {
+        element.attachEvent("on" + event, listener);
+    }
+    else {
+        element["on" + event] = listener;
+    }
+}
+  window.onload=function(){
+  var s =document.getElementById("s");
+  var inputs= document.getElementById("input");
+  var textarea = document.getElementById("textarea");
+  var text = document.getElementById("text");
+  var queue = {
+
+       str: [],
+        
+        leftPush: function(value) {
+            this.str.unshift(value);
+            this.paint();
+        },
+        
+        rightPush: function(num) {
+            this.str.push(num);
+            this.paint();
+        },
+        
+        isEmpty: function() {
+            return (this.str.length == 0);
+        },
+        
+        leftPop: function() {
+            if (!this.isEmpty()) {
+                this.str.shift();
+                this.paint();
+            }
+            else {
+                alert("The queue is already empty!");
+            }
+        },
+        
+        rightPop: function() {
+            if (!this.isEmpty()) {
+                this.str.pop();
+                this.paint();
+            }
+            else {
+                alert("The queue is already empty!");
+            }
+        },
+        
+        paint: function(match) {
+          
+         inputs.innerHTML =
+        this.str.map(function(d) {
+          var r = d;
+          if (match != null && match.length > 0) {
+            r = r.replace(new RegExp(match, "g"), "<span class='select'>" + match + "</span>");
+          }
+          return "<p>" + r + "</p>";
+        }).join('');
+
+            addDivDelEvent();
+         
+        },
+        
+        deleteID: function(id) {
+            console.log(id);
+            this.str.splice(id, 1);
+            this.paint();
+        },
+
+        search:function(match) {
+        
+
+        }
+
+
+
+
+       
+
+
+}
+
+function addDivDelEvent() {
+        for (var cur = 0; cur < inputs.childNodes.length; cur++) {
+            //这里要使用闭包，否则永远绑定到指定div上的delete函数的参数永远等于跳出时的cur值(length);
+            addEvent(inputs.childNodes[cur], "click", function(cur) {
+                return function(){return queue.deleteID(cur)};
+
+            }(cur));
+        }
+    }
+
+
+s.addEventListener("click",function(event){
+    
+     var target = event.target;
+     switch(target.id) {
+
+       case "insert":
+       var value=textarea.value;
+       queue.rightPush(value);
+       break;
+
+
+       case "search":
+       var value = text.value;
+       queue.paint(value);
+       break;
+
+     
+   
+     } 
+
+     
+
+  
+  });
+
+
+  }
